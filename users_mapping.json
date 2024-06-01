@@ -1,1 +1,0 @@
-{"users":{"mappings":{"properties":{"email":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"name":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"password":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}}}}
