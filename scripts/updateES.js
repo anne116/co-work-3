@@ -19,7 +19,6 @@ const response = await fetch(tmdbApi, tmdbApiOptions);
 const data = await response.json();
 
 // update to ElasticSearch
-
 await Promise.all(
   data.results.map(async (movie) => {
     const {
@@ -70,9 +69,6 @@ await Promise.all(
       }),
     };
 
-    await fetch(
-      `http://${process.env.esHost}/${process.env.esIndex}/_update/${id}`,
-      esOptions
-    );
+    await fetch(`http://${process.env.esHost}/movies/_update/${id}`, esOptions);
   })
 );
