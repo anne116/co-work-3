@@ -1,0 +1,13 @@
+{
+  "_index": "saved_list",
+  "_id": "_Mxy048Be3fnJv9MTBz_",
+  "_score": 1,
+  "_source": {
+    "rating": 2,
+    "isSaved": true,
+    "userId": "6cz40o8Be3fnJv9MhRw6",
+    "movieId": "7MwS048Be3fnJv9MPBxz",
+    "moviename": "Civil War",
+    "movie_source_id": 929590
+  }
+}
