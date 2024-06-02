@@ -1,0 +1,10 @@
+div.row {
+  width: 80vw;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+}
+p.mainWord {
+  margin-top: 2rem;
+  margin-left: 10rem;
+}
