@@ -3,7 +3,7 @@ export const client = new Client({ node: "http://localhost:9200" });
 
 export async function searchMovies(query) {
   const result = await client.search({
-    index: "movies_new",
+    index: "movies",
     body: {
       query: {
         match: {

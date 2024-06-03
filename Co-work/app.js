@@ -11,7 +11,8 @@ app.get("/recommend", async (rea, res) => {
 });
 
 app.get("/user_recommend", async (rea, res) => {
-  const result = await userRecommendation("6cz40o8Be3fnJv9MhRw6");
+  const userId = req.query.userId;
+  const result = await userRecommendation(userId);
   res.send(result);
 });
 

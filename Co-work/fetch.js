@@ -17,6 +17,7 @@ const options = {
     Authorization: `Bearer ${process.env.TMDB_AUTH} `,
   },
 };
+// console.log(process.env.TMDB_AUTH);
 
 async function searchMovieList() {
   try {
@@ -32,6 +33,7 @@ async function searchMovieList() {
 async function run() {
   const movieData = await searchMovieList();
   // console.log(movieData);
+  // return;
 
   const body = movieData.results.map((movie) => ({
     // Map each movie to the desired format, ensuring 'vote_average' remains as 'long'
@@ -40,13 +42,11 @@ async function run() {
   }));
 
   console.log(body);
-  // return;
+
   body.map(async (data) => {
     await client.index({
       index: "movies",
-      body: {
-        data,
-      },
+      body: data,
     });
   });
 }
