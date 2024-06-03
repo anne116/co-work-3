@@ -45,7 +45,7 @@ function MovieArea({ isHome, isSearch, movieId }) {
           console.error("Error fetching data:", error);
         });
     }
-  }, [isHome, isSearch, setMovies]);
+  }, [isHome, isSearch, setMovies, movieId]);
 
   return (
     <>
