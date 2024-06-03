@@ -5,15 +5,12 @@ import Search from "./Search.jsx";
 import SignInPage from "./SignIn.jsx";
 import SavedList from "./savedList";
 import MovieDetail from "./movieDetail";
-import MovieArea from "./MovieArea.jsx";
-
 
 function HomePage() {
   return (
     <>
       <Header />
       <Search />
-      <MovieArea />
     </>
   );
 }

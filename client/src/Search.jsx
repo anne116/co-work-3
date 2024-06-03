@@ -13,11 +13,19 @@ import {
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 import axios from "axios";
+import MovieArea from "./MovieArea.jsx";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
+
+  const [isSearch, setIsSearch] = useState(false);
+  const [isHome, setIsHome] = useState(true);
+
+  const handleSearch = () => {
+    setIsSearch(true);
+  };
 
   const translateQuery = async (text) => {
     const googleTranslateApiKey = import.meta.env.VITE_GOOGLE_TRANSLATE_KEY;
@@ -42,48 +50,44 @@ const Search = () => {
     }
   };
 
-  const handleSearch = async () => {
-    setError("");
-    try {
-      // 翻译查询
-      const translatedQuery = await translateQuery(query);
+  // const handleSearch = async () => {
+  //   setError("");
+  //   try {
+  //     // 翻译查询
+  //     const translatedQuery = await translateQuery(query);
 
-      // 使用翻译后的查询进行搜索
-      const response = await fetch(`http://localhost:9200/movies/_search`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: {
-            multi_match: {
-              query: translatedQuery,
-              fields: ["title", "overview", "original_title"],
-            },
-          },
-        }),
-      });
+  //     // 使用翻译后的查询进行搜索
+  //     const response = await fetch(`http://localhost:9200/movies/_search`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         query: {
+  //           multi_match: {
+  //             query: translatedQuery,
+  //             fields: ["title", "overview", "original_title"],
+  //           },
+  //         },
+  //       }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
 
-      const data = await response.json();
-      console.log(data);
-      setResults(data.hits.hits);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setError("Error fetching data. Please try again later.");
-    }
-  };
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setResults(data.hits.hits);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     setError("Error fetching data. Please try again later.");
+  //   }
+  // };
 
   return (
     <>
       <InputGroup borderRadius={5} size="sm" mt="2rem" mb="5rem">
-        {/* <InputLeftElement
-          pointerEvents="none"
-          children={<Search2Icon color="gray.800" />}
-        /> */}
         <Flex justify="center" align="center" w="100vw" h="20vh">
           <Input
             type="text"
@@ -106,38 +110,7 @@ const Search = () => {
           </Button>
         </Flex>
       </InputGroup>
-      {/* {error && (
-        <Box mt={4} ml={900} w={600} color="red">
-          {error}
-        </Box>
-      )}
-      <Box mt={4} ml={900} w={600}>
-        <VStack spacing={4}>
-          {results.map((result) => (
-            <Box
-              key={result._id}
-              p={4}
-              borderWidth="1px"
-              borderRadius="lg"
-              w="full"
-            >
-              <Text fontWeight="bold" fontSize="lg">
-                {result._source.title}
-              </Text>
-              <Text>{result._source.overview}</Text>
-              <Text>
-                <strong>Release Date:</strong> {result._source.release_date}
-              </Text>
-              {result._source.poster_path && (
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${result._source.poster_path}`}
-                  alt={result._source.title}
-                />
-              )}
-            </Box>
-          ))}
-        </VStack>
-      </Box> */}
+      <MovieArea isHome={isHome} isSearch={isSearch} />
     </>
   );
 };
