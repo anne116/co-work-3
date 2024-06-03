@@ -99,7 +99,7 @@ const MovieDetail = () => {
           </VStack>
         </HStack>
       </Box>
-      <MovieArea isHome={isHome} isSearch={isSearch} />
+      <MovieArea isHome={isHome} isSearch={isSearch} movieId={id} />
     </>
   );
 };

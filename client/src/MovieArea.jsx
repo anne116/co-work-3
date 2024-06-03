@@ -5,7 +5,7 @@ import Movie from "./Movie";
 
 const MOVIE_PER_ROW = 3;
 
-function MovieArea({ isHome, isSearch }) {
+function MovieArea({ isHome, isSearch, movieId }) {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -14,9 +14,9 @@ function MovieArea({ isHome, isSearch }) {
     if (isHome && isSearch) {
       url = "http://localhost:3000/api/search/movies?keyword=civil";
     } else if (isHome) {
-      url = "http://localhost:3000/api/recommend/movie?id=929590";
+      url = "http://localhost:6002/recommend";
     } else {
-      url = "http://localhost:3000/api/recommend/movie?id=929590";
+      url = `http://localhost:3000/api/recommend/movie?id=${movieId}`;
     }
 
     if (url) {
