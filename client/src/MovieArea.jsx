@@ -2,13 +2,31 @@ import { useEffect, useState } from "react";
 import { Text, Link } from "@chakra-ui/react";
 import "./MovieArea.css";
 import Movie from "./Movie";
+import { useLocation } from "react-router-dom";
 
 const MOVIE_PER_ROW = 3;
 
 function MovieArea({ isHome, isSearch, movieId }) {
   const [movies, setMovies] = useState([]);
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  function UserComponent() {
+    let query = useQuery();
+    let userId = query.get("userId");
+
+    return userId;
+  }
+  const userId = UserComponent();
 
   useEffect(() => {
+
+    fetch(`http://localhost:6002/user_recommend?userId=${userId}`)
+      .then((response) => response.json())
+      .then((json) => setMovies(json));
+  }, []);
+
     let url = "";
 
     if (isHome && isSearch) {
@@ -28,6 +46,7 @@ function MovieArea({ isHome, isSearch, movieId }) {
         });
     }
   }, [isHome, isSearch, setMovies]);
+
 
   return (
     <>

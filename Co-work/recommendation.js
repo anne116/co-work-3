@@ -39,11 +39,16 @@ export async function userRecommendation(userId) {
   let userMovie = userData.map((data) => {
     return data._source.movie_source_id;
   });
-  console.log(userMovie);
+
+  //   console.log(userMovie);
+
 
   //根據用戶收藏movieId取得電影詳細資訊，並返回相關類型genre_ids
   let moviesId = await getMovieById(userMovie);
   moviesId = moviesId.hits.hits;
+  //   console.log(moviesId);
+  //   return;
+
   const moviesType = moviesId.flatMap((data) => {
     return data._source.genre_ids;
   });
@@ -58,7 +63,7 @@ export async function userRecommendation(userId) {
 
   // 取出前五個出現次數最高的 genre_id
   const topGenres = sortedGenres.slice(0, 9).map((entry) => parseInt(entry[0]));
-  console.log(topGenres);
+  //   console.log(topGenres);
 
   let moviesGenreIds = await getMovieByGenre_ids(topGenres);
   moviesGenreIds = moviesGenreIds.hits.hits;
@@ -69,7 +74,8 @@ export async function userRecommendation(userId) {
       data._source.poster_path;
     return data;
   });
-  //   console.log(moviesGenreIds);
+  console.log(moviesGenreIds);
+
   return moviesGenreIds;
 }
 
