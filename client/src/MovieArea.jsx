@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Text } from "@chakra-ui/react";
-import "./HomeDown.css";
+import "./MovieArea.css";
 import Movie from "./Movie";
 
+const isHome = true;
 const isSearch = false;
 const MOVIE_PER_ROW = 3;
 
-function HomeDown() {
+function MovieArea() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -24,7 +25,11 @@ function HomeDown() {
         lineHeight="short"
         className="mainWord"
       >
-        {isSearch ? "搜尋結果：" : "熱門推薦："}
+        {isHome
+          ? isSearch
+            ? "搜尋結果："
+            : "熱門推薦："
+          : "你可能也會喜歡..."}
       </Text>
       <div className="row">
         {movies.slice(0, MOVIE_PER_ROW).map((movie) => (
@@ -48,4 +53,4 @@ function HomeDown() {
   );
 }
 
-export default HomeDown;
+export default MovieArea;
