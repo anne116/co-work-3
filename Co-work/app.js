@@ -10,7 +10,7 @@ app.get("/recommend", async (rea, res) => {
   res.send(result);
 });
 
-app.get("/user_recommend", async (rea, res) => {
+app.get("/user_recommend", async (req, res) => {
   const userId = req.query.userId;
   const result = await userRecommendation(userId);
   res.send(result);
