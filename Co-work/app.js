@@ -5,17 +5,17 @@ import { recommendMovie, userRecommendation } from "./recommendation.js";
 import { searchMovies } from "./auto-complete.js";
 const app = express();
 
-app.get("/recommend/api1", async (rea, res) => {
+app.get("/recommend", async (rea, res) => {
   const result = await recommendMovie();
   res.send(result);
 });
 
-app.get("/user_recommend/api1", async (rea, res) => {
+app.get("/user_recommend", async (rea, res) => {
   const result = await userRecommendation("6cz40o8Be3fnJv9MhRw6");
   res.send(result);
 });
 
-app.get("/", async (req, res) => {
+app.get("/auto_complete", async (req, res) => {
   //   res.send("Welcome");
   const test = await searchMovies("f");
   res.send(test);

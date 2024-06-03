@@ -28,7 +28,7 @@ export async function recommendMovie() {
     return ratioB - ratioA; // 降序排列
   });
 
-  recommendMovie = recommendMovie.slice(0, 5);
+  recommendMovie = recommendMovie.slice(0, 9);
   return recommendMovie;
 }
 
@@ -56,7 +56,7 @@ export async function userRecommendation(userId) {
   const sortedGenres = Object.entries(genreCounts).sort((a, b) => b[1] - a[1]);
 
   // 取出前五個出現次數最高的 genre_id
-  const topGenres = sortedGenres.slice(0, 5).map((entry) => parseInt(entry[0]));
+  const topGenres = sortedGenres.slice(0, 9).map((entry) => parseInt(entry[0]));
   console.log(topGenres);
 
   let moviesGenreIds = await getMovieByGenre_ids(topGenres);
