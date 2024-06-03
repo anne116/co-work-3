@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Input,
   InputGroup,
   Button,
   Flex,
+  Box,
+  List,
+  ListItem,
 } from "@chakra-ui/react";
 import axios from "axios";
 import MovieArea from "./MovieArea.jsx";
@@ -12,6 +15,8 @@ const Search = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
   const [isSearch, setIsSearch] = useState(false);
   const isHome = true;
 
@@ -44,7 +49,7 @@ const Search = () => {
       const translatedQuery = await translateQuery(query);
       console.log("Original Query:", query);
       console.log("Translated Query:", translatedQuery);
-     
+
       const response = await fetch(`http://localhost:9200/movies/_search`, {
         method: "POST",
         headers: {
@@ -72,20 +77,69 @@ const Search = () => {
     }
   };
 
+  const fetchSuggestions = async (input) => {
+    if (input.length < 1) {
+      setSuggestions([]);
+      return;
+    }
+    try {
+      const response = await axios.get("http://localhost:6002/auto_complete", {
+        params: { query: input },
+      });
+      setSuggestions(response.data);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+      setSuggestions([]);
+    }
+  };
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetchSuggestions(query);
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [query]);
+
   return (
     <>
       <InputGroup borderRadius={5} size="sm" mt="2rem" mb="5rem">
         <Flex justify="center" align="center" w="100vw" h="20vh">
-          <Input
-            type="text"
-            placeholder="Search..."
-            border="2px solid #949494"
-            ml={-5}
-            p={3}
-            w={300}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+          <Box w={300} position="relative">
+            <Input
+              type="text"
+              placeholder="Search..."
+              border="2px solid #949494"
+              ml={-5}
+              p={3}
+              w={300}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            {suggestions.length > 0 && (
+              <Box
+                position="absolute"
+                bg="white"
+                border="1px solid #ddd"
+                mt={2}
+                width="100%"
+                zIndex={1}
+              >
+                <List>
+                  {suggestions.map((suggestion, index) => (
+                    <ListItem
+                      key={index}
+                      p={2}
+                      borderBottom="1px solid #ddd"
+                      _hover={{ bg: "#f0f0f0", cursor: "pointer" }}
+                      onClick={() => setQuery(suggestion)}
+                    >
+                      {suggestion}
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            )}
+          </Box>
           <Button
             size="lg"
             borderLeftRadius={5}
@@ -103,5 +157,3 @@ const Search = () => {
 };
 
 export default Search;
-
-

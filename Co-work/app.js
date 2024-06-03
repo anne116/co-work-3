@@ -6,8 +6,6 @@ import { searchMovies } from "./auto-complete.js";
 import cors from "cors";
 const app = express();
 
-
-
 app.use(cors());
 
 app.get("/recommend", async (req, res) => {
@@ -26,8 +24,15 @@ app.get("/user_recommend", async (req, res) => {
 
 app.get("/auto_complete", async (req, res) => {
   //   res.send("Welcome");
-  const test = await searchMovies("f");
-  res.send(test);
+  const query = req.query.query;
+  const test = await searchMovies(query);
+  const searchData = test.map((list) => {
+    return list._source.title;
+  });
+  //   console.log(searchData);
+  //   return searchData;
+  console.log(query);
+  res.send(searchData);
 });
 
 const port = 6002;

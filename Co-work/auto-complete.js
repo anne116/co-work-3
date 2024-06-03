@@ -6,8 +6,8 @@ export async function searchMovies(query) {
     index: "movies",
     body: {
       query: {
-        match: {
-          "data.title": query,
+        match_phrase_prefix: {
+          title: query,
         },
       },
     },
@@ -20,4 +20,4 @@ export async function searchMovies(query) {
 //   console.log(test);
 // }
 
-// test("Civil");
+// test("K");
