@@ -30,7 +30,7 @@ function MovieArea({ isHome, isSearch, movies, movieId }) {
     let url = "";
 
     if (isHome && isSearch) {
-      url = "http://localhost:3000/api/search/movies?keyword=civil";
+      setRecommendedMovies(movies);
     } else if (!userId && isHome) {
       url = "http://localhost:6002/recommend";
     } else if (userId && isHome) {
@@ -41,8 +41,7 @@ function MovieArea({ isHome, isSearch, movies, movieId }) {
       url = `http://localhost:3000/api/recommend/movie?id=${movieId}`;
     }
 
-    if (url && !isSearch) {
-      // Only fetch recommended movies if not searching
+    if (url) {
       fetch(url)
         .then((response) => response.json())
         .then((json) => setRecommendedMovies(json))
@@ -50,11 +49,7 @@ function MovieArea({ isHome, isSearch, movies, movieId }) {
           console.error("Error fetching data:", error);
         });
     }
-  }, [isHome, isSearch, setRecommendedMovies, movies, movieId]);
-
-  const displayMovies = isSearch ? movies : recommendedMovies;
-
-  console.log("Display Movies:", displayMovies);
+  }, [isHome, isSearch, movies, movieId]);
 
   return (
     <>
@@ -72,17 +67,19 @@ function MovieArea({ isHome, isSearch, movies, movieId }) {
           : "你可能也會喜歡..."}
       </Text>
       <div className="row">
-        {displayMovies.slice(0, MOVIE_PER_ROW).map((movie) => (
+        {recommendedMovies.slice(0, MOVIE_PER_ROW).map((movie) => (
           <Movie key={movie._id} movie={movie._source} />
         ))}
       </div>
       <div className="row">
-        {displayMovies.slice(MOVIE_PER_ROW, MOVIE_PER_ROW * 2).map((movie) => (
-          <Movie key={movie._id} movie={movie._source} />
-        ))}
+        {recommendedMovies
+          .slice(MOVIE_PER_ROW, MOVIE_PER_ROW * 2)
+          .map((movie) => (
+            <Movie key={movie._id} movie={movie._source} />
+          ))}
       </div>
       <div className="row">
-        {displayMovies
+        {recommendedMovies
           .slice(MOVIE_PER_ROW * 2, MOVIE_PER_ROW * 3)
           .map((movie) => (
             <Movie key={movie._id} movie={movie._source} />
