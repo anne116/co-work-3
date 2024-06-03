@@ -1,13 +1,9 @@
 import express from "express";
-import searchRouter from "./routes/search.js";
-import savedListRouter from "./routes/savedList.js";
-import movieDetailRouter from "./routes/movieDetail.js";
+import recommendRouter from "./routes/recommend.js";
 
 const app = express();
 
-app.use("/api/search", searchRouter);
-app.use("/api/savedList", savedListRouter);
-app.use("/api/movie/detail", movieDetailRouter);
+app.use("/api/recommend", recommendRouter);
 
 app.route("/").get((req, res) => {
   res.send("ok");
