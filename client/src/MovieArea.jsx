@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 
 const MOVIE_PER_ROW = 3;
 
-function MovieArea({ isHome, isSearch, movieId }) {
-  const [movies, setMovies] = useState([]);
+function MovieArea({ isHome, isSearch, movies }) {
+  const [recommendedMovies, setRecommendedMovies] = useState([]);
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -41,15 +41,20 @@ function MovieArea({ isHome, isSearch, movieId }) {
       url = `http://localhost:3000/api/recommend/movie?id=${movieId}`;
     }
 
-    if (url) {
+    if (url && !isSearch) {
+      // Only fetch recommended movies if not searching
       fetch(url)
         .then((response) => response.json())
-        .then((json) => setMovies(json))
+        .then((json) => setRecommendedMovies(json))
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
     }
-  }, [isHome, isSearch, setMovies]);
+  }, [isHome, isSearch, movies]);
+
+  const displayMovies = isSearch ? movies : recommendedMovies;
+
+  console.log("Display Movies:", displayMovies);
 
   return (
     <>
@@ -67,22 +72,21 @@ function MovieArea({ isHome, isSearch, movieId }) {
           : "你可能也會喜歡..."}
       </Text>
       <div className="row">
-        {movies.slice(0, MOVIE_PER_ROW).map((movie) => (
-          <Movie movie={movie._source} />
-          // <p>{movie._source.original_title} </p>
+        {displayMovies.slice(0, MOVIE_PER_ROW).map((movie) => (
+          <Movie key={movie._id} movie={movie._source} />
         ))}
       </div>
       <div className="row">
-        {movies.slice(MOVIE_PER_ROW, MOVIE_PER_ROW * 2).map((movie) => (
-          <Movie movie={movie._source} />
-          // <p>{movie._source.original_title} </p>
+        {displayMovies.slice(MOVIE_PER_ROW, MOVIE_PER_ROW * 2).map((movie) => (
+          <Movie key={movie._id} movie={movie._source} />
         ))}
       </div>
       <div className="row">
-        {movies.slice(MOVIE_PER_ROW * 2, MOVIE_PER_ROW * 3).map((movie) => (
-          <Movie movie={movie._source} />
-          // <p>{movie._source.original_title} </p>
-        ))}
+        {displayMovies
+          .slice(MOVIE_PER_ROW * 2, MOVIE_PER_ROW * 3)
+          .map((movie) => (
+            <Movie key={movie._id} movie={movie._source} />
+          ))}
       </div>
     </>
   );
