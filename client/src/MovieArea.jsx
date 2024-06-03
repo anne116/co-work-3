@@ -31,8 +31,12 @@ function MovieArea({ isHome, isSearch, movieId }) {
 
     if (isHome && isSearch) {
       url = "http://localhost:3000/api/search/movies?keyword=civil";
-    } else if (isHome) {
+    } else if (!userId && isHome) {
       url = "http://localhost:6002/recommend";
+    } else if (userId && isHome) {
+      url = `http://localhost:6002/user_recommend?userId=${userId}`;
+    } else if (userId && !isHome && !isSearch) {
+      url = `http://localhost:6002/user_recommend?userId=${userId}`;
     } else {
       url = `http://localhost:3000/api/recommend/movie?id=${movieId}`;
     }

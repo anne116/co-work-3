@@ -12,7 +12,7 @@ export async function recommendMovie() {
   let data = await getAllMovie();
   let recommendMovie = data.hits.hits;
   const weightAverage = (voteAverage, voteCount) => {
-    const weight = 0.7; //將voteCount的權重設為0.8
+    const weight = 0.7; //將voteCount的權重設為0.7
     return voteAverage * voteCount + voteCount * weight;
   };
 
@@ -41,7 +41,6 @@ export async function userRecommendation(userId) {
   });
 
   //   console.log(userMovie);
-
 
   //根據用戶收藏movieId取得電影詳細資訊，並返回相關類型genre_ids
   let moviesId = await getMovieById(userMovie);
