@@ -12,6 +12,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import MovieArea from "./MovieArea.jsx";
+import Header from "./Header.jsx";
 
 const MovieDetail = () => {
   const { id } = useParams(); // Get the id from the route parameters
@@ -66,7 +67,8 @@ const MovieDetail = () => {
 
   return (
     <>
-      <Box p="4" m="4" w="full">
+      <Header />
+      <Box p="4" mx="4" my="5rem" w="80%">
         <Heading as="h2" size="lg" mb="4">
           {movie.title}
         </Heading>

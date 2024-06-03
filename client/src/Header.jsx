@@ -8,9 +8,12 @@ const Header = () => {
   return (
     <Box bg="pink" w="100vw" h="10vh">
       <Flex justify="space-between" align="center" w="90%" h="100%" ml="4rem">
-        <Text fontSize="25" fontWeight="bold" color="red">
-          NETFLIP
-        </Text>
+        <Link to="/">
+          <Text fontSize="25" fontWeight="bold" color="red">
+            NETFLIP
+          </Text>
+        </Link>
+
         <Flex>
           <Link to="/signin">
             <IconButton
