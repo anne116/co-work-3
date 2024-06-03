@@ -8,6 +8,7 @@ const MOVIE_PER_ROW = 3;
 
 function MovieArea({ isHome, isSearch, movieId }) {
   const [movies, setMovies] = useState([]);
+
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
@@ -21,11 +22,10 @@ function MovieArea({ isHome, isSearch, movieId }) {
   const userId = UserComponent();
 
   useEffect(() => {
-
-    fetch(`http://localhost:6002/user_recommend?userId=${userId}`)
-      .then((response) => response.json())
-      .then((json) => setMovies(json));
-  }, []);
+    //   fetch(`http://localhost:6002/user_recommend?userId=${userId}`)
+    //     .then((response) => response.json())
+    //     .then((json) => setMovies(json));
+    // }, []);
 
     let url = "";
 
@@ -46,7 +46,6 @@ function MovieArea({ isHome, isSearch, movieId }) {
         });
     }
   }, [isHome, isSearch, setMovies]);
-
 
   return (
     <>
