@@ -6,7 +6,6 @@ export const getRecommendByMovie = async (req, res) => {
   const movie = await getMovieById(id);
 
   const genreIds = movie._source.genre_ids;
-  //   console.log(genreIds);
 
   const result = await Promise.all(
     genreIds.map(async (genreId) => {
@@ -21,7 +20,9 @@ export const getRecommendByMovie = async (req, res) => {
       []
     );
 
-  const recommendMovies = flatten(result);
+  const recommendMovies = flatten(result).filter(
+    (element) => element._source.id !== movie._source.id
+  );
 
   res.status(200).json(recommendMovies);
 };
