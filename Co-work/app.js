@@ -1,7 +1,8 @@
 import fetch from "node-fetch";
 import express from "express";
 import { Client } from "@elastic/elasticsearch";
-import { recommendMovie } from "./recommendation.js";
+import { recommendMovie, userRecommendation } from "./recommendation.js";
+import { searchMovies } from "./auto-complete.js";
 const app = express();
 
 app.get("/recommend/api1", async (rea, res) => {
@@ -9,8 +10,15 @@ app.get("/recommend/api1", async (rea, res) => {
   res.send(result);
 });
 
+app.get("/user_recommend/api1", async (rea, res) => {
+  const result = await userRecommendation("6cz40o8Be3fnJv9MhRw6");
+  res.send(result);
+});
+
 app.get("/", async (req, res) => {
-  res.send("Welcome");
+  //   res.send("Welcome");
+  const test = await searchMovies("f");
+  res.send(test);
 });
 
 const port = 6002;

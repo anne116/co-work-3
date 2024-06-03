@@ -12,7 +12,6 @@ export async function getAllMovie() {
       },
     },
   });
-  //   const movieData = body.hits.hits[0]._source.Movie_table[0];
   //   console.log(result);
   return result;
 }
@@ -22,7 +21,7 @@ export async function getMovieById(id) {
     index: "movies",
     body: {
       query: {
-        match: { id: id },
+        terms: { id: id },
       },
     },
   });
@@ -30,6 +29,39 @@ export async function getMovieById(id) {
   //   console.log(result);
   return result;
 }
+
+export async function getMovieByGenre_ids(genre_ids) {
+  const result = await client.search({
+    index: "movies",
+    body: {
+      query: {
+        terms: { genre_ids: genre_ids },
+      },
+    },
+  });
+  //   const movieData = body.hits.hits[0]._source.Movie_table[0];
+  //   console.log(result);
+  return result;
+}
+
+export async function getUserSavedList(userId) {
+  const result = await client.search({
+    index: "saved_list",
+    body: {
+      query: {
+        match: { userId: userId },
+      },
+    },
+  });
+  //   console.log(result);
+  return result;
+}
 // getMovieById().catch(console.log);
 
 // getAllMovie().catch(console.log);
+
+// async function test() {
+//   console.log(await getMovieByGenre_ids([80]));
+// }
+
+// test();
