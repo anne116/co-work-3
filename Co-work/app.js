@@ -4,6 +4,8 @@ import { Client } from "@elastic/elasticsearch";
 import { recommendMovie, userRecommendation } from "./recommendation.js";
 import { searchMovies } from "./auto-complete.js";
 const app = express();
+import cors from "cors";
+app.use(cors());
 
 app.get("/recommend", async (rea, res) => {
   const result = await recommendMovie();
@@ -12,7 +14,10 @@ app.get("/recommend", async (rea, res) => {
 
 app.get("/user_recommend", async (req, res) => {
   const userId = req.query.userId;
+  console.log(userId);
+  //   return;
   const result = await userRecommendation(userId);
+  console.log(result);
   res.send(result);
 });
 
