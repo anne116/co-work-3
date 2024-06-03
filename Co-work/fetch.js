@@ -1,6 +1,8 @@
 import fetch from "node-fetch";
 import { Client } from "@elastic/elasticsearch";
 export const client = new Client({ node: "http://localhost:9200" });
+import dotenv from "dotenv";
+dotenv.config();
 
 // client
 //   .info()
@@ -12,8 +14,7 @@ const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzM2VmOWYzNTJiMjNlNDUzOWI4OWQ0ODQwYmQ0YjY5NSIsInN1YiI6IjY2NWE4MjM1NWI4OWMwYjE0ZDA3Y2I4NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uTsAsRdx9svFZ-XCme5AjYBuJ6_Ph57GTBlVNUAFJO0 ",
+    Authorization: `Bearer ${process.env.TMDB_AUTH} `,
   },
 };
 

@@ -27,6 +27,12 @@ export async function recommendMovie() {
     );
     return ratioB - ratioA; // 降序排列
   });
+  recommendMovie = recommendMovie.map((list) => {
+    list._source.data.poster_path =
+      "https://media.themoviedb.org/t/p/w220_and_h330_face" +
+      list._source.data.poster_path;
+    return data;
+  });
 
   recommendMovie = recommendMovie.slice(0, 9);
   return recommendMovie;
@@ -61,6 +67,13 @@ export async function userRecommendation(userId) {
 
   let moviesGenreIds = await getMovieByGenre_ids(topGenres);
   moviesGenreIds = moviesGenreIds.hits.hits;
+
+  moviesGenreIds.map((data) => {
+    data._source.poster_path =
+      "https://media.themoviedb.org/t/p/w220_and_h330_face" +
+      data._source.poster_path;
+    return data;
+  });
   //   console.log(moviesGenreIds);
   return moviesGenreIds;
 }
