@@ -6,13 +6,8 @@ import { useLocation } from "react-router-dom";
 
 const MOVIE_PER_ROW = 3;
 
-<<<<<<< Updated upstream
-function MovieArea({ isHome, isSearch, movieId }) {
-  const [movies, setMovies] = useState([]);
-=======
 function MovieArea({ isHome, isSearch, movies }) { 
   const [recommendedMovies, setRecommendedMovies] = useState([]);
->>>>>>> Stashed changes
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -34,19 +29,10 @@ function MovieArea({ isHome, isSearch, movies }) {
 
     let url = "";
 
-<<<<<<< Updated upstream
-    if (isHome && isSearch) {
-      url = "http://localhost:3000/api/search/movies?keyword=civil";
-    } else if (isHome) {
-      url = "http://localhost:6002/recommend";
-    } else {
-      url = `http://localhost:3000/api/recommend/movie?id=${movieId}`;
-=======
     if (isHome && !isSearch) {
       // url = "http://localhost:6002/recommend";
     } else if (!isHome) {
       url = `http://localhost:3000/api/recommend/movie?id=${movies[0]?._id}`;
->>>>>>> Stashed changes
     }
 
     if (url && !isSearch) {  // Only fetch recommended movies if not searching

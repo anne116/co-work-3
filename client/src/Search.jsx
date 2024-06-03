@@ -14,13 +14,6 @@ const Search = () => {
   const [error, setError] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const isHome = true;
-<<<<<<< Updated upstream
-
-  const handleSearch = () => {
-    setIsSearch(true);
-  };
-=======
->>>>>>> Stashed changes
 
   const translateQuery = async (text) => {
     const googleTranslateApiKey = import.meta.env.VITE_GOOGLE_TRANSLATE_KEY;
