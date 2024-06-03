@@ -17,21 +17,15 @@ export async function recommendMovie() {
   };
 
   recommendMovie.sort((a, b) => {
-    const ratioA = weightAverage(
-      a._source.data.vote_average,
-      a._source.data.vote_count
-    );
-    const ratioB = weightAverage(
-      b._source.data.vote_average,
-      b._source.data.vote_count
-    );
+    const ratioA = weightAverage(a._source.vote_average, a._source.vote_count);
+    const ratioB = weightAverage(b._source.vote_average, b._source.vote_count);
     return ratioB - ratioA; // 降序排列
   });
   recommendMovie = recommendMovie.map((list) => {
-    list._source.data.poster_path =
+    list._source.poster_path =
       "https://media.themoviedb.org/t/p/w220_and_h330_face" +
-      list._source.data.poster_path;
-    return data;
+      list._source.poster_path;
+    return list;
   });
 
   recommendMovie = recommendMovie.slice(0, 9);
