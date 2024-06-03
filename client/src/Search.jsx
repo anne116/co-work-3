@@ -21,7 +21,7 @@ const Search = () => {
   const [error, setError] = useState("");
 
   const [isSearch, setIsSearch] = useState(false);
-  const [isHome, setIsHome] = useState(true);
+  const isHome = true;
 
   const handleSearch = () => {
     setIsSearch(true);

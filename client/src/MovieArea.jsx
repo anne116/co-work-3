@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text } from "@chakra-ui/react";
+import { Text, Link } from "@chakra-ui/react";
 import "./MovieArea.css";
 import Movie from "./Movie";
 
@@ -14,6 +14,8 @@ function MovieArea({ isHome, isSearch }) {
     if (isHome && isSearch) {
       url = "http://localhost:3000/api/search/movies?keyword=civil";
     } else if (isHome) {
+      url = "http://localhost:3000/api/recommend/movie?id=929590";
+    } else {
       url = "http://localhost:3000/api/recommend/movie?id=929590";
     }
 
