@@ -39,13 +39,16 @@ export async function userRecommendation(userId) {
   let userMovie = userData.map((data) => {
     return data._source.movie_source_id;
   });
+
   //   console.log(userMovie);
+
 
   //根據用戶收藏movieId取得電影詳細資訊，並返回相關類型genre_ids
   let moviesId = await getMovieById(userMovie);
   moviesId = moviesId.hits.hits;
   //   console.log(moviesId);
   //   return;
+
   const moviesType = moviesId.flatMap((data) => {
     return data._source.genre_ids;
   });

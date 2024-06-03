@@ -5,8 +5,10 @@ const todayDate = format(new Date(), "yyyyMMdd");
 dotenv.config();
 
 // fetch data from TMDB API
+// const tmdbApi =
+//   "https://api.themoviedb.org/3/trending/movie/day?language=en-US";
 const tmdbApi =
-  "https://api.themoviedb.org/3/trending/movie/day?language=en-US";
+  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
 const tmdbApiOptions = {
   method: "GET",
   headers: {

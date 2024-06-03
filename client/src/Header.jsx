@@ -6,11 +6,14 @@ import { InfoIcon, StarIcon } from "@chakra-ui/icons";
 
 const Header = () => {
   return (
-    <Box bg="pink" justify="space-between" align="center" w={1200} h={70}>
-      <Flex justify="space-between" align="center" maxW="1200px" mx="100">
-        <Text fontSize="25" fontWeight="bold" color="red">
-          NETFLIP
-        </Text>
+    <Box bg="pink" w="100vw" h="10vh">
+      <Flex justify="space-between" align="center" w="90%" h="100%" ml="4rem">
+        <Link to="/">
+          <Text fontSize="25" fontWeight="bold" color="red">
+            NETFLIP
+          </Text>
+        </Link>
+
         <Flex>
           <Link to="/signin">
             <IconButton

@@ -3,11 +3,14 @@ import express from "express";
 import { Client } from "@elastic/elasticsearch";
 import { recommendMovie, userRecommendation } from "./recommendation.js";
 import { searchMovies } from "./auto-complete.js";
-const app = express();
 import cors from "cors";
+const app = express();
+
+
+
 app.use(cors());
 
-app.get("/recommend", async (rea, res) => {
+app.get("/recommend", async (req, res) => {
   const result = await recommendMovie();
   res.send(result);
 });
